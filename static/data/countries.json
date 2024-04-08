@@ -1,0 +1,65 @@
+{
+  "name": "Europe",
+  "children": [
+    {
+      "name": "Austria",
+      "value": 89,
+      "color": "#5E75F1"
+    },
+    {
+      "name": "France",
+      "value": 83,
+      "color": "#5E75F1"
+    },
+    {
+      "name": "Switzerland",
+      "value": 61,
+      "color": "#719DF5"
+    },
+    {
+      "name": "Italy",
+      "value": 44,
+      "color": "#719DF5"
+    },
+    {
+      "name": "Germany",
+      "value": 24,
+      "color": "#85C4FF"
+    },
+    {
+      "name": "Other",
+      "value": 14,
+      "color": "#85C4FF"
+    },
+    {
+      "name": "Norway",
+      "value": 10,
+      "color": "#C8DEFF"
+    },
+    {
+      "name": "Spain",
+      "value": 8,
+      "color": "#C8DEFF"
+    },
+    {
+      "name": "Denmark",
+      "value": 8,
+      "color": "#C8DEFF"
+    },
+    {
+      "name": "Sweden",
+      "value": 6,
+      "color": "#E3F4FD"
+    },
+    {
+      "name": "Andorra",
+      "value": 5,
+      "color": "#E3F4FD"
+    },
+    {
+      "name": "Slovakia",
+      "value": 5,
+      "color": "#E3F4FD"
+    }
+  ]
+}

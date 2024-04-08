@@ -10,12 +10,98 @@
 </head>
 
 <body>
+  <div>
+    <a href="../../5311-homework3/static/index.html">go to hw3</a>
+  </div>
+<div>
+
+  <svg width="800" height="600" id="tree_map" ></svg>
+</div>
+
+<div style="display: flex; justify-content: space-around;">
+  
+  <div id="filter" style="width: 200px; height: 600px;border: solid 1px black;">
+    <button style="display: block;">Parking</button>
+    <button style="display: block;">Night Ski</button>
+    <input type="range" min="1" max="100" value="50" style="display: block;">
+  </div>
+  
+  
+    <svg id="scatterPlot" height="600" width="600" style="border: solid 1px black;"></svg>
+  
+  <div id="resort_info" style="width: 300px; height: 600px; border: solid 1px black;"></div>
+
+</div>
 
 
   <script>
 
 
     const requestData = async function () {
+
+      const countries = await d3.json("data/countries.json");
+      console.log(countries);
+      const austria = await d3.csv("data/austria.csv");  
+      console.log(austria);   
+      const france = await d3.csv("data/france.csv");  
+      console.log(france); 
+      const switzerland = await d3.csv("data/switzerland.csv");  
+      console.log(switzerland); 
+      const italy = await d3.csv("data/italy.csv");  
+      console.log(italy); 
+      const germany = await d3.csv("data/germany.csv");  
+      console.log(germany); 
+      const other = await d3.csv("data/other.csv");  
+      console.log(other); 
+      const norway = await d3.csv("data/norway.csv");  
+      console.log(norway); 
+      const spain = await d3.csv("data/spain.csv");  
+      console.log(spain); 
+      const denmark = await d3.csv("data/denmark.csv");  
+      console.log(denmark); 
+      const sweden = await d3.csv("data/sweden.csv");  
+      console.log(sweden); 
+      const slovakia = await d3.csv("data/slovakia.csv");  
+      console.log(slovakia); 
+      const andorra = await d3.csv("data/andorra.csv");  
+      console.log(andorra); 
+
+
+      const svg_tree = d3.select("#tree_map");
+      const width = d3.select("#tree_map").attr("width");
+      const height = d3.select("#tree_map").attr("height");
+      
+      const root = d3.hierarchy(countries)
+        .sum(d => d.value)
+        .sort((a, b) => b.value - a.value);
+
+      const treemap = d3.treemap()
+        .size([width, height])
+        .padding(1)
+        .round(true);
+
+      treemap(root);
+
+      const cell = svg_tree.selectAll("g")
+        .data(root.leaves())
+        .enter()
+        .append("g")
+        .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+      cell.append("rect")
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .attr("fill", d => d.data.color);
+
+      cell.append("text")
+        .attr("x", d => (d.x1 - d.x0) / 2)
+        .attr("y", d => (d.y1 - d.y0) / 2)
+        .attr("dy", ".35em") 
+        .attr("text-anchor", "middle")  
+        .text(d => d.data.name);
+
+/////////////////////////////////////////////////////////////////////////////////////
+
 
     }
 

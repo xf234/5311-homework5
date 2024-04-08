@@ -1,0 +1,34 @@
+Unnamed: 0,Resort,Country,HighestPoint,LowestPoint,DayPassPriceAdult,BeginnerSlope,IntermediateSlope,DifficultSlope,TotalSlope,Snowparks,NightSki,SurfaceLifts,ChairLifts,GondolaLifts,TotalLifts,LiftCapacity,SnowCannons
+5,Rosa Khutor,Southern Russia,2320,940,22,30,26,21,77,Yes,No,6,11,10,27,49228,450
+6,Białka Tatrzańska-Kotelnica-​Kaniówka-​Bania,Poland,910,680,23,12,3,0,16,Yes,Yes,7,1,0,8,28020,0
+7,Vitosha-Sofia,Bulgaria,2290,726,18,12,6,2,20,No,Yes,8,5,2,15,12450,0
+8,Szczyrk-Skrzyczne,Poland,1257,524,20,22,7,4,35,No,No,11,4,1,16,22500,0
+9,Jahorina,Bosnia and Herzegovina,1889,920,20,3,19,3,25,No,Yes,5,5,1,11,16230,0
+10,Kobla-Bohinj,Slovenia,1480,540,22,12,10,1,23,No,No,3,3,0,6,5720,30
+12,Gornaya Karusel,Southern Russia,960,540,22,4,15,1,20,No,No,3,1,0,4,15740,0
+78,Bukovel,Ukraine,1372,890,32,26,28,11,65,Yes,Yes,3,15,0,18,33839,0
+98,Borovets,Bulgaria,2560,1300,28,24,29,5,58,Yes,Yes,8,4,2,14,15800,160
+103,Ylläs,Finland,718,200,42,21,28,6,55,Yes,Yes,27,1,1,29,28284,36
+110,Kopaonik,Serbia,2017,1057,30,30,19,6,55,Yes,Yes,14,13,0,27,35052,315
+132,Sheregesh-Kemerovo,Siberia,1270,670,0,0,0,0,0,No,No,3,5,4,12,19919,0
+133,Gazprom Mountain Resort-Laura-– Esto-Sadok-Sotschi-,Southern Russia,949,547,32,7,10,2,20,No,Yes,6,6,6,18,27874,0
+138,Mariborsko Pohorje-Maribor,Slovenia,1327,325,31,23,13,5,41,No,Yes,16,5,1,22,23436,92
+151,Pamporovo,Bulgaria,1926,1620,28,17,6,5,29,Yes,Yes,6,7,0,13,14266,130
+158,Špindlerův Mlýn,Czech Republic,1235,702,34,8,13,2,24,Yes,Yes,17,6,0,23,21638,0
+163,Alpika Service,Southern Russia,2228,535,0,10,10,5,25,No,No,1,1,7,9,18120,0
+164,Sinaia,Romania,880,834,32,3,11,4,20,No,No,2,3,4,9,9864,0
+172,Mount Parnassos-Fterolakka-​Kellaria,Greece,2300,1600,30,18,15,3,36,No,No,9,3,5,17,20052,0
+175,Glenshee,United Kingdom,900,650,33,24,10,2,36,No,No,18,3,0,21,16255,6
+177,Poiana Brașov,Romania,1799,1021,32,5,2,5,13,No,Yes,5,2,3,10,11038,145
+187,Malbun,Liechtenstein,2000,1600,42,11,9,3,23,Yes,No,6,3,0,9,8800,16
+188,Špičák,Czech Republic,1202,854,23,3,3,0,8,Yes,Yes,11,1,0,12,7390,30
+194,Indoor ski area Snow Arena-Druskininkai,Lithuania,163,97,29,1,0,0,1,Yes,Yes,4,1,0,5,2800,16
+226,Indoor ski area SnowWorld Landgraaf,Netherlands,210,150,42,0,0,0,1,Yes,Yes,10,9,0,19,5231,4
+251,Kanin-Sella Nevea-​Bovec,Slovenia,1103,460,35,4,6,0,10,No,No,3,4,4,11,11670,0
+287,Bansko,Bulgaria,2560,990,30,20,24,3,48,Yes,Yes,7,8,2,17,24233,380
+309,Glencoe Mountain,United Kingdom,1070,360,35,7,10,7,24,No,No,6,2,0,8,5800,0
+325,Kranjska Gora,Slovenia,1215,800,33,10,8,2,20,Yes,Yes,15,5,0,20,17774,0
+331,The Lecht,United Kingdom,775,637,33,5,9,4,18,Yes,Yes,12,1,0,13,9750,0
+338,Nevis Range,United Kingdom,655,91,36,7,10,3,20,No,No,8,3,1,12,10350,0
+340,Levi,Finland,531,206,43,15,19,2,37,Yes,Yes,25,2,2,29,30110,267
+341,Ruka,Finland,492,291,43,9,7,2,18,Yes,Yes,17,5,0,22,22915,70
