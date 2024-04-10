@@ -2,13 +2,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 
-h2 {
+h2, h3 {
   font-family: 'Montserrat';
 }
 
-p {
+p, td {
   font-family: 'Roboto';
 }
+#resort_info table {
+  display: inline-block;
+}
 
+#resort_info table td {
+  width: 110px;
+  text-align: left;
+  padding: 5px;
+}
+#country, #name {
+  padding: 5px;
+}
 
 

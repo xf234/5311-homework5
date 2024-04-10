@@ -20,18 +20,68 @@
     <svg width="800" height="600" id="tree_map"></svg>
   </div>
 
+  <div id="filter" style="border: solid 1px black;">
+    <button>Parking</button>
+    <button>Night Ski</button>
+    <input type="range" min="1" max="100" value="50">
+  </div>
+
   <div style="display: flex; justify-content: space-around;">
-
-    <div id="filter" style="width: 200px; height: 600px;border: solid 1px black;">
-      <button style="display: block;">Parking</button>
-      <button style="display: block;">Night Ski</button>
-      <input type="range" min="1" max="100" value="50" style="display: block;">
-    </div>
-
-
     <svg id="scatterPlot" height="600" width="600" style="border: solid 1px black;"></svg>
 
-    <div id="resort_info" style="width: 300px; height: 600px; border: solid 1px black;"></div>
+    <div id="resort_info"
+      style=" display: flex; width: 800px; height: 620px; justify-content: space-around; border: solid 1px black;">
+
+      <div style="border: solid 1px black; width: 300px;">
+        <h3 id="name" style="height: 40px;"></h3>
+        <p id="country" style="height: 18px;font-size: 14px;"></p>
+        <table style="border: solid 1px black;">
+
+          <tbody>
+            <tr>
+              <td>HighestPoint</td>
+              <td id="HighestPoint"></td>
+
+            </tr>
+            <tr>
+              <td>LowestPoint</td>
+              <td id="LowestPoint"></td>
+
+            </tr>
+            <tr>
+              <td>DayPassPriceAdult</td>
+              <td id="DayPassPriceAdult"></td>
+            </tr>
+            <tr>
+              <td>Snowparks</td>
+              <td id="Snowparks"></td>
+            </tr>
+            <tr>
+              <td>NightSki</td>
+              <td id="nightSki"></td>
+            </tr>
+            <tr>
+              <td>LiftCapacity</td>
+              <td id="LiftCapacity"></td>
+            </tr>
+            <tr>
+              <td>SnowCannons</td>
+              <td id="SnowCannons"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style=" border: solid 1px black; width: 450px;">
+        <div>
+          <svg width="400" height="300" id="slope_info" style="border: solid 1px black;"></svg>
+        </div>
+        <div>
+          <svg width="400" height="300" id="lift_info" style="border: solid 1px black;"></svg>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 
@@ -62,11 +112,41 @@
       .attr("height", chartHeight);
 
     chart.attr("clip-path", "url(#chartClip)");
+    //////////////////////////////////////////////////////////////////////////////////////
+    const svg_slope = d3.select("#slope_info");
+    const svg_lift = d3.select("#lift_info");
+    const width2 = svg_slope.attr("width");
+    const height2 = svg_slope.attr("height");
+    const margin2 = { top: 10, right: 10, bottom: 10, left: 80 };
+    const barWidth = width2 - margin2.left - margin2.right;
+    const barHeight = height2 - margin2.top - margin2.bottom;
+    const barAreaSlope = svg_slope.append("g")
+      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+    const barAreaLift = svg_lift.append("g")
+      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-    const requestDataTree = async function () {
+    const typeScaleSlope = draw_bar_left_axis(["BeginnerSlope", "MediumSlope", "DifficultSlope"], svg_slope);
+    const typeScaleLift = draw_bar_left_axis(["SurfaceLifts", "ChairLifts", "GondolaLifts"], svg_lift);
+
+    const requestData = async function () {
 
       const countries = await d3.json("data/countries.json");
-      console.log(countries);
+
+      const austria = await d3.csv("data/austria.csv", d3.autoType);
+
+      const france = await d3.csv("data/france.csv", d3.autoType);
+      const switzerland = await d3.csv("data/switzerland.csv", d3.autoType);
+      const italy = await d3.csv("data/italy.csv", d3.autoType);
+      const germany = await d3.csv("data/germany.csv", d3.autoType);
+      const other = await d3.csv("data/other.csv", d3.autoType);
+      const norway = await d3.csv("data/norway.csv", d3.autoType);
+      const spain = await d3.csv("data/spain.csv", d3.autoType);
+      const denmark = await d3.csv("data/denmark.csv", d3.autoType);
+      const sweden = await d3.csv("data/sweden.csv", d3.autoType);
+      const slovakia = await d3.csv("data/slovakia.csv", d3.autoType);
+      const andorra = await d3.csv("data/andorra.csv", d3.autoType);
+      // console.log(countries, austria, france, switzerland, italy, 
+      // germany, other, norway, spain, denmark, sweden, slovakia, andorra);
 
       const root = d3.hierarchy(countries)
         .sum(d => d.value)
@@ -98,120 +178,18 @@
         .text(d => d.data.name);
 
       /////////////////////////////////////////////////////////////////////////////////////
-      // display_resorts(austria);
+      display_resorts(austria);
 
 
     }
 
-    requestDataTree();
+    requestData();
 
-    const requestDataScatter = async () => {
-
-      const austria = await d3.csv("data/austria.csv", d3.autoType);
-      console.log(austria);
-      const france = await d3.csv("data/france.csv", d3.autoType);
-      console.log(france);
-      const switzerland = await d3.csv("data/switzerland.csv", d3.autoType);
-      console.log(switzerland);
-      const italy = await d3.csv("data/italy.csv", d3.autoType);
-      console.log(italy);
-      const germany = await d3.csv("data/germany.csv", d3.autoType);
-      console.log(germany);
-      const other = await d3.csv("data/other.csv", d3.autoType);
-      console.log(other);
-      const norway = await d3.csv("data/norway.csv", d3.autoType);
-      console.log(norway);
-      const spain = await d3.csv("data/spain.csv", d3.autoType);
-      console.log(spain);
-      const denmark = await d3.csv("data/denmark.csv", d3.autoType);
-      console.log(denmark);
-      const sweden = await d3.csv("data/sweden.csv", d3.autoType);
-      console.log(sweden);
-      const slovakia = await d3.csv("data/slovakia.csv", d3.autoType);
-      console.log(slovakia);
-      const andorra = await d3.csv("data/andorra.csv", d3.autoType);
-      console.log(andorra);
-
-        var data = austria;
-        const slopeExtent = d3.extent(data, d => d['TotalSlope']);
-        console.log('TotalSlope', slopeExtent);
-        const slopeScale = d3.scaleLinear().domain(slopeExtent).range([chartHeight - 10, 10]);
-
-        const liftExtent = d3.extent(data, d => d['TotalLifts']);
-        console.log('TotalLifts', liftExtent);
-        const liftScale = d3.scaleLinear().domain(liftExtent).range([10, chartWidth - 10]);
-
-        let leftAxis = d3.axisLeft(slopeScale);
-        yAxisArea.append("g").attr("class", "y axis").call(leftAxis);
-        
-        let bottomAxis = d3.axisBottom(liftScale);
-        xAxisArea.append("g").attr("class", "x axis").call(bottomAxis);
-
-        let viewport = chart.append("g");
-
-
-        let circles = viewport.selectAll("circle").data(data)
-          .join("circle")
-          .attr("cx", d => liftScale(d['TotalLifts']))
-          .attr("cy", d => slopeScale(d['TotalSlope']))
-          .attr("r", 4)
-          .style("opacity", 0.7)
-          .style("fill", "#85C4FF")
-          // .on("mouseover", show_details)
-          ;
-        xAxisArea.append('text')
-          .attr('x', chartWidth + 5)
-          .attr('y', 0)
-          .text('Lifts')
-          .attr('id', 'liftText')
-          .style('font-size', '10px');
-
-        yAxisArea.append('text')
-          .attr('x', -10)
-          .attr('y', -5)
-          .text('Slopes')
-          .attr('id', 'slopeText')
-          .style('font-size', '10px');
-
-        chart.append("rect").attr("x", 0).attr("y", 0)
-          .attr("width", chartWidth).attr("height", chartHeight)
-          .attr("fill", "none")
-          .style("pointer-events", "all");
-
-        let zoomExtent = [[0, 0], [chartWidth, chartHeight]];
-        let translateExtent = [[-30, -30], [chartWidth + 30, chartHeight + 30]];
-        var scatterZoom = d3.zoom()
-          .extent(zoomExtent)
-          .translateExtent(translateExtent)
-          .scaleExtent([1, 2.5])
-          .on("zoom", scatterZoomed);
-
-        chart.call(scatterZoom);
-
-        function scatterZoomed() {
-          const transform = d3.event.transform;
-          viewport.attr("transform", transform);
-
-          let txScale = transform.rescaleX(liftScale);
-          let tyScale = transform.rescaleY(slopeScale);
-          bottomAxis.scale(txScale);
-          leftAxis.scale(tyScale);
-
-          d3.select("g.y.axis").call(leftAxis);
-          d3.select("g.x.axis").call(bottomAxis);
-
-          circles.attr("cx", d => txScale(d['TotalLifts']))
-            .attr("cy", d => tyScale(d['TotalSlope']))
-            .attr("r", 4 / transform.k);
-        }
-
-        chart.call(scatterZoom.transform, d3.zoomIdentity);
-    }
-    requestDataScatter();
 
     function display_resorts(data) {
 
-
+      var selectedCircle = data[data.length-1];
+      console.log('selected cirlce', selectedCircle);
       const slopeExtent = d3.extent(data, d => d['TotalSlope']);
       console.log('TotalSlope', slopeExtent);
       const slopeScale = d3.scaleLinear().domain(slopeExtent).range([chartHeight - 10, 10]);
@@ -222,17 +200,9 @@
 
       let leftAxis = d3.axisLeft(slopeScale);
       yAxisArea.append("g").attr("class", "y axis").call(leftAxis);
-      // svg_scatter.append('g')
-      //   .attr('class', 'y axis')
-      //   .attr('transform', `translate(${margin1.left - 10},${margin1.top})`)
-      //   .call(leftAxis);
 
       let bottomAxis = d3.axisBottom(liftScale);
       xAxisArea.append("g").attr("class", "x axis").call(bottomAxis);
-      // svg_scatter.append('g')
-      //   .attr('class', 'x axis')
-      //   .attr('transform', `translate(${margin1.left},${chartHeight + margin1.top + 10})`)
-      //   .call(bottomAxis);
 
       let viewport = chart.append("g");
 
@@ -243,9 +213,10 @@
         .attr("cy", d => slopeScale(d['TotalSlope']))
         .attr("r", 4)
         .style("opacity", 0.7)
-        .style("fill", "#85C4FF")
-        // .on("mouseover", show_details)
+        .style("fill", d => (d === selectedCircle ? "red" : "#85C4FF"))
+        .on("click", d => show_details(d, circles, selectedCircle))
         ;
+      show_details(data[data.length-1], circles, selectedCircle)
       xAxisArea.append('text')
         .attr('x', chartWidth + 5)
         .attr('y', 0)
@@ -263,14 +234,15 @@
       chart.append("rect").attr("x", 0).attr("y", 0)
         .attr("width", chartWidth).attr("height", chartHeight)
         .attr("fill", "none")
-        .style("pointer-events", "all");
+        .style("pointer-events", "all")
+        .lower();
 
       let zoomExtent = [[0, 0], [chartWidth, chartHeight]];
-      let translateExtent = [[-50, -50], [chartWidth + 50, chartHeight + 50]];
+      let translateExtent = [[-30, -30], [chartWidth + 30, chartHeight + 30]];
       var scatterZoom = d3.zoom()
         .extent(zoomExtent)
         .translateExtent(translateExtent)
-        .scaleExtent([1, 3])
+        .scaleExtent([1, 2.5])
         .on("zoom", scatterZoomed);
 
       chart.call(scatterZoom);
@@ -289,15 +261,124 @@
 
 
 
-        circles.attr("cx", d => txScale(d['TotalLifts']))
-          .attr("cy", d => tyScale(d['TotalSlope']))
-          .attr("r", 4 / transform.k);
+        circles.attr("r", 4 / transform.k);
 
       }
 
       chart.call(scatterZoom.transform, d3.zoomIdentity);
     }
 
+    function show_details(d, circles, selectedCircle) {
+      selectedCircle = d;
+
+      circles.style("fill", d => (d === selectedCircle ? "red" : "#85C4FF"));
+
+      
+
+      let name = d.Resort;
+      let country = d.Country;
+
+      let hp = d.HighestPoint;
+      let lp = d.LowestPoint;
+      let price = d.DayPassPriceAdult;
+      let parking = d.Snowparks;
+      let nightSki = d.NightSki;
+      let capacityLift = d.LiftCapacity;
+      let cannon = d.SnowCannons;
+
+      let bslope = d.BeginnerSlope;
+      let islope = d.IntermediateSlope;
+      let dslope = d.DifficultSlope;
+      let slift = d.SurfaceLifts;
+      let clift = d.ChairLifts;
+      let glift = d.GondolaLifts;
+
+
+      console.log(name, hp, lp, price, parking, nightSki, capacityLift, cannon, bslope, glift);
+
+      d3.select("#name").text(name);
+      d3.select("#country").text(country);
+      d3.select("#HighestPoint").text(hp);
+      d3.select("#LowestPoint").text(lp);
+      d3.select("#DayPassPriceAdult").text(price);
+      d3.select("#Snowparks").text(parking);
+      d3.select("#nightSki").text(nightSki);
+      d3.select("#LiftCapacity").text(capacityLift);
+      d3.select("#SnowCannons").text(cannon);
+
+      let numberScaleSlope = d3.scaleLinear()
+        .domain([0, d3.max([bslope, islope, dslope])])
+        .range([0, barWidth - 20]);
+
+      let numberScaleLift = d3.scaleLinear()
+        .domain([0, d3.max([slift, clift, glift])])
+        .range([0, barWidth - 20]);
+
+      let slope_data = create_data("BeginnerSlope", "MediumSlope", "DifficultSlope", bslope, islope, dslope);
+      draw_bar_chart(barAreaSlope, numberScaleSlope, typeScaleSlope, slope_data);
+      let lift_data = create_data("SurfaceLifts", "ChairLifts", "GondolaLifts", slift, clift, glift);
+      draw_bar_chart(barAreaLift, numberScaleLift, typeScaleLift, lift_data);
+    }
+
+    function draw_bar_left_axis(types, svg) {
+      let typeScale = d3.scaleBand()
+        .domain(types)
+        .range([0, barHeight])
+        .padding(0.6);
+
+      let leftAxis = d3.axisLeft(typeScale);
+      svg.append('g')
+        .attr('class', 'y axis')
+        .attr('transform', `translate(${margin2.left},${margin2.top})`)
+        .call(leftAxis);
+
+      return typeScale;
+    }
+
+    function draw_bar_chart(barArea, numberScale, typeScale, data) {
+      barArea.selectAll("rect").remove();
+      barArea.selectAll("text").remove();
+      barArea.selectAll(".bar")
+        .data(data)
+        .enter().append("rect")
+        .attr("class", ".bar")
+        .attr("x", d => numberScale(0))
+        .attr("y", d => typeScale(d.type))
+        .attr("width", 0)
+        .attr("height", typeScale.bandwidth())
+        .style("fill", "#85C4FF")
+        .transition()
+        .duration(1000)
+        .attr("width", d => numberScale(d.number));
+      // .attr("width", d => numberScale(d.number))
+      // .attr("height", typeScale.bandwidth())
+      // .style("fill", "#85C4FF");
+
+      barArea.selectAll(".bar-label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "bar-label")
+        .attr("x", d => numberScale(0) + 5)
+        .attr("y", d => typeScale(d.type) + typeScale.bandwidth() / 2)
+        .text(0)
+        .attr("alignment-baseline", "middle")
+        .attr("font-size", "12px")
+        .attr("font-family", "Roboto")
+        .transition()
+        .duration(1000)
+        .attr("x", d => numberScale(d.number) + 5)
+        .tween("text", function (d) {
+          var i = d3.interpolate(0, d.number);
+          return function (t) {
+            d3.select(this).text(Math.round(i(t)));
+          };
+        });
+    }
+
+    function create_data(t1, t2, t3, n1, n2, n3) {
+      return [{ "type": t1, "number": n1 }, { "type": t2, "number": n2 }, { "type": t3, "number": n3 }];
+    }
 
   </script>
 
