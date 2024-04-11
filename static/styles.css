@@ -23,3 +23,37 @@ p, td {
 }
 
 
+
+.selected {
+  background-color: blue;
+  color: white;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  margin: 20px;
+}
+
+.slider-value {
+  flex-grow: 1;
+  text-align: center;
+}
+
+#parkingButton, #nightSkiButton {
+  width: 100px;
+  height: 40px;
+  border: 2px solid #ccc;
+  padding: 10px 20px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+#parkingButton:hover {
+  background-color: #ddd;
+}
+
+
