@@ -97,7 +97,6 @@
     const svg_tree = d3.select("#tree_map");
     const width = d3.select("#tree_map").attr("width");
     const height = d3.select("#tree_map").attr("height");
-
     //////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////
     var first_display = true;
@@ -170,7 +169,6 @@
       const countries = await d3.json("data/countries.json");
 
       const austria = await d3.csv("data/austria.csv", d3.autoType);
-
       const france = await d3.csv("data/france.csv", d3.autoType);
       const switzerland = await d3.csv("data/switzerland.csv", d3.autoType);
       const italy = await d3.csv("data/italy.csv", d3.autoType);
@@ -184,6 +182,8 @@
       const andorra = await d3.csv("data/andorra.csv", d3.autoType);
       // console.log(countries, austria, france, switzerland, italy, 
       // germany, other, norway, spain, denmark, sweden, slovakia, andorra);
+
+      var selected_counrtry = austria;
 
       const root = d3.hierarchy(countries)
         .sum(d => d.value)
@@ -205,7 +205,13 @@
       cell.append("rect")
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
-        .attr("fill", d => d.data.color);
+        .attr("fill", d => d.data.color)
+        .on("click", function (d) {
+
+          change_country(d.data.name);
+          first_display = true;
+          display_resorts(selected_counrtry);
+        });;
 
       cell.append("text")
         .attr("x", d => (d.x1 - d.x0) / 2)
@@ -225,7 +231,7 @@
           buttonParking.classList.add("selected");
           parkingState = true;
         }
-        display_resorts(austria);
+        display_resorts(selected_counrtry);
       });
 
       buttonNightSki.addEventListener("click", function () {
@@ -237,23 +243,57 @@
           buttonNightSki.classList.add("selected");
           nightSkiState = true;
         }
-        display_resorts(austria);
+        display_resorts(selected_counrtry);
       });
 
       document.getElementById("slider").addEventListener("input", function () {
         first_display = false;
-        updateSliderValue();
-        display_resorts(austria);
+        display_resorts(selected_counrtry);
       });
 
-      display_resorts(austria);
+      display_resorts(selected_counrtry);
 
-
+      function change_country(name) {
+        if (name == "Austria") {
+          selected_counrtry = austria;
+        }
+        if (name == "France") {
+          selected_counrtry = france;
+        }
+        if (name == "Switzerland") {
+          selected_counrtry = switzerland;
+        }
+        if (name == "Italy") {
+          selected_counrtry = italy;
+        }
+        if (name == "Germany") {
+          selected_counrtry = germany;
+        }
+        if (name == "Other") {
+          selected_counrtry = other;
+        }
+        if (name == "Norway") {
+          selected_counrtry = norway;
+        }
+        if (name == "Spain") {
+          selected_counrtry = spain;
+        }
+        if (name == "Denmark") {
+          selected_counrtry = denmark;
+        }
+        if (name == "Sweden") {
+          selected_counrtry = sweden;
+        }
+        if (name == "Andorra") {
+          selected_counrtry = andorra;
+        }
+        if (name == "Slovakia") {
+          selected_counrtry = slovakia;
+        }
+      }
     }
 
     requestData();
-
-
 
     function display_resorts(data0) {
       var selectedCircle = data0[data0.length - 1];
@@ -276,6 +316,8 @@
       let bottomAxis = d3.axisBottom(liftScale);
 
       if (first_display) {
+        yAxisArea.select(".y.axis").remove();
+        xAxisArea.select(".x.axis").remove();
         const minPrice = priceExtent[0];
         const initialPrice = maxPrice;
         document.getElementById("min-value").textContent = minPrice;
@@ -304,7 +346,7 @@
       }
 
       data = data.filter(function (instance) {
-          return instance.DayPassPriceAdult <= document.getElementById("slider").value;
+        return instance.DayPassPriceAdult <= document.getElementById("slider").value;
       });
 
       viewport.selectAll("circle").remove();
@@ -459,10 +501,6 @@
       return [{ "type": t1, "number": n1 }, { "type": t2, "number": n2 }, { "type": t3, "number": n3 }];
     }
 
-    function updateSliderValue() {
-      const sliderValue = document.getElementById("sliderValue");
-      sliderValue.textContent = slider.value;
-    }
   </script>
 
 </body>
