@@ -34,57 +34,60 @@
   </div>
 
   <div style="display: flex; justify-content: space-around;">
-    <svg id="scatterPlot" height="600" width="600" style="border: solid 1px black;"></svg>
+    <svg id="scatterPlot" height="600" width="560" style="border: solid 1px black;"></svg>
 
     <div id="resort_info"
       style=" display: flex; width: 800px; height: 620px; justify-content: space-around; border: solid 1px black;">
 
-      <div style="border: solid 1px black; width: 300px;">
-        <h3 id="name" style="height: 40px;"></h3>
-        <p id="country" style="height: 18px;font-size: 14px;"></p>
-        <table style="border: solid 1px black;">
+      <div id="info_panel">
+        <div id="info_top">
+          <h3 id="name"></h3>
+          <p id="country" ></p>
+        </div>
+
+        <table >
 
           <tbody>
+
             <tr>
-              <td>HighestPoint</td>
               <td id="HighestPoint"></td>
+              <td  id="LowestPoint"></td>
+
+            </tr>
+            <tr class="data_name">
+              <td>HighestPoint</td>
+              <td >LowestPoint</td>
 
             </tr>
             <tr>
-              <td>LowestPoint</td>
-              <td id="LowestPoint"></td>
-
+              <td id="Snowparks"><img src="" alt="" style="width: 25px; height: 25px;"></td>
+              <td id="nightSki"> <img src="" alt="" style="width: 25px; height: 25px;"></td>
             </tr>
-            <tr>
-              <td>DayPassPriceAdult</td>
-              <td id="DayPassPriceAdult"></td>
-            </tr>
-            <tr>
+            <tr class="data_name">
               <td>Snowparks</td>
-              <td id="Snowparks"></td>
+              <td > NightSki</td>
             </tr>
+
             <tr>
-              <td>NightSki</td>
-              <td id="nightSki"></td>
-            </tr>
-            <tr>
-              <td>LiftCapacity</td>
               <td id="LiftCapacity"></td>
-            </tr>
-            <tr>
-              <td>SnowCannons</td>
               <td id="SnowCannons"></td>
+              <td><span id="DayPassPriceAdult"></span> <img src="pictures/dollar.svg" alt="dollars" style="width: 8px;"></td>
+            </tr>
+            <tr class="data_name">
+              <td>LiftCapacity</td>
+              <td >SnowCannons</td>
+              <td>AdultDayPass</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div style=" border: solid 1px black; width: 450px;">
+      <div style=" border: solid 1px black; width: 400px;">
         <div>
-          <svg width="400" height="300" id="slope_info" style="border: solid 1px black;"></svg>
+          <svg width="380" height="240" id="slope_info" style="border: solid 1px black;"></svg>
         </div>
         <div>
-          <svg width="400" height="300" id="lift_info" style="border: solid 1px black;"></svg>
+          <svg width="380" height="240" id="lift_info" style="border: solid 1px black;"></svg>
         </div>
       </div>
 
@@ -109,7 +112,7 @@
     const svg_scatter = d3.select("#scatterPlot");
     const width1 = svg_scatter.attr("width");
     const height1 = svg_scatter.attr("height");
-    const margin1 = { top: 30, right: 30, bottom: 30, left: 60 };
+    const margin1 = { top: 90, right: 50, bottom: 30, left: 60 };
     const chartWidth = width1 - margin1.left - margin1.right;
     const chartHeight = height1 - margin1.top - margin1.bottom;
     const yAxisArea = svg_scatter.append("g")
@@ -132,15 +135,26 @@
       .attr('x', chartWidth + 5)
       .attr('y', 0)
       .text('Lifts')
-      .attr('id', 'liftText')
-      .style('font-size', '10px');
+      .style('font-size', '10px')
+      .style('fill', 'grey')
+      .style('font-family', 'Roboto');
 
     yAxisArea.append('text')
       .attr('x', -10)
       .attr('y', -5)
       .text('Slopes')
-      .attr('id', 'slopeText')
-      .style('font-size', '10px');
+      .style('font-size', '10px')
+      .style('fill', 'grey')
+      .style('font-family', 'Roboto');
+
+    svg_scatter.append("text")
+      .attr("x", width1 / 2)
+      .attr("y", 50)
+      .attr("text-anchor", "middle")
+      .text("Correlation between number of slopes and lifts")
+      .style("font-size", "18px")
+      .style("font-weight", "500")
+      .style("font-family", 'Montserrat');
 
     chart.append("rect").attr("x", 0).attr("y", 0)
       .attr("width", chartWidth).attr("height", chartHeight)
@@ -153,7 +167,7 @@
     const svg_lift = d3.select("#lift_info");
     const width2 = svg_slope.attr("width");
     const height2 = svg_slope.attr("height");
-    const margin2 = { top: 10, right: 10, bottom: 10, left: 80 };
+    const margin2 = { top: 10, right: 10, bottom: 10, left: 100 };
     const barWidth = width2 - margin2.left - margin2.right;
     const barHeight = height2 - margin2.top - margin2.bottom;
     const barAreaSlope = svg_slope.append("g")
@@ -163,7 +177,7 @@
 
     const typeScaleSlope = draw_bar_left_axis(["BeginnerSlope", "MediumSlope", "DifficultSlope"], svg_slope);
     const typeScaleLift = draw_bar_left_axis(["SurfaceLifts", "ChairLifts", "GondolaLifts"], svg_lift);
-
+    ///////////////////////////////////////////////////////////////////////////////////////////
     const requestData = async function () {
 
       const countries = await d3.json("data/countries.json");
@@ -296,7 +310,7 @@
     requestData();
 
     function display_resorts(data0) {
-      var selectedCircle = data0[data0.length - 1];
+      var selectedCircle = data0[0];
       console.log('selected cirlce', selectedCircle);
       const slopeExtent = d3.extent(data0, d => d['TotalSlope']);
       console.log('TotalSlope', slopeExtent);
@@ -312,12 +326,17 @@
       var data = data0;
 
       const maxPrice = priceExtent[1];
-      let leftAxis = d3.axisLeft(slopeScale);
-      let bottomAxis = d3.axisBottom(liftScale);
+      let leftAxis = d3.axisLeft(slopeScale).tickSize(3.5);
+      let yGridlines = d3.axisLeft(slopeScale).tickSize(-chartWidth).tickFormat("");
+      let bottomAxis = d3.axisBottom(liftScale).tickSize(3.5);
+      let xGridlines = d3.axisBottom(liftScale).tickSize(-chartHeight).tickFormat("");
 
       if (first_display) {
         yAxisArea.select(".y.axis").remove();
+        yAxisArea.select(".y.gridlines").remove();
         xAxisArea.select(".x.axis").remove();
+        xAxisArea.select(".x.gridlines").remove();
+
         const minPrice = priceExtent[0];
         const initialPrice = maxPrice;
         document.getElementById("min-value").textContent = minPrice;
@@ -328,6 +347,8 @@
         document.getElementById("sliderValue").textContent = initialPrice;
         yAxisArea.append("g").attr("class", "y axis").call(leftAxis);
         xAxisArea.append("g").attr("class", "x axis").call(bottomAxis);
+        yAxisArea.append("g").attr("class", "y gridlines").call(yGridlines);
+        xAxisArea.append("g").attr("class", "x gridlines").call(xGridlines);
       }
 
       const sliderValue = document.getElementById("sliderValue");
@@ -353,13 +374,17 @@
 
       let circles = viewport.selectAll("circle").data(data)
         .join("circle")
-        .attr("cx", d => liftScale(d['TotalLifts']))
-        .attr("cy", d => slopeScale(d['TotalSlope']))
+        .attr("cx", d => liftScale(d['TotalLifts']) + jitter())
+        .attr("cy", d => slopeScale(d['TotalSlope']) + jitter())
         .attr("r", 4)
-        .style("opacity", 0.7)
-        .style("fill", d => (d === selectedCircle ? "red" : "#85C4FF"))
+        .style("fill", d => (d === selectedCircle ? "#5E75F1" : "#85C4FF"))
+        .style("fill-opacity", d => (d === selectedCircle ? 1 : 0.5))
+        .style("stroke", "#5E75F1")
+        .style("stroke-opacity", 1)
+        .style("stroke-width", "2px")
         .on("click", d => show_details(d, circles, selectedCircle))
         ;
+
       show_details(data[data.length - 1], circles, selectedCircle)
 
 
@@ -368,7 +393,7 @@
       var scatterZoom = d3.zoom()
         .extent(zoomExtent)
         .translateExtent(translateExtent)
-        .scaleExtent([1, 3])
+        .scaleExtent([1, 6])
         .on("zoom", scatterZoomed);
 
       chart.call(scatterZoom);
@@ -381,10 +406,27 @@
         let tyScale = transform.rescaleY(slopeScale);
         bottomAxis.scale(txScale);
         leftAxis.scale(tyScale);
+        yGridlines.scale(txScale);
+        xGridlines.scale(tyScale);
 
         d3.select("g.y.axis").call(leftAxis);
         d3.select("g.x.axis").call(bottomAxis);
-        circles.attr("r", 4 / transform.k);
+        d3.select("g.y.gridlines").call(yGridlines);
+        d3.select("g.x.gridlines").call(xGridlines);
+
+        circles.attr("r", 4 / transform.k * 1.1);
+        circles.style("stroke-width", 2 / transform.k);
+        circles.on("mouseover", function () {
+          d3.select(this)
+            .transition().duration(200)
+            .attr("r", 7 / transform.k);
+        });
+
+        circles.on("mouseout", function () {
+          d3.select(this)
+            .transition().duration(200)
+            .attr("r", 4 / transform.k);
+        });
 
       }
 
@@ -394,7 +436,8 @@
     function show_details(d, circles, selectedCircle) {
       selectedCircle = d;
 
-      circles.style("fill", d => (d === selectedCircle ? "red" : "#85C4FF"));
+      circles.style("fill", d => (d === selectedCircle ? "#5E75F1" : "#85C4FF"))
+        .style("fill-opacity", d => (d === selectedCircle ? 1 : 0.5));
 
       let name = d.Resort;
       let country = d.Country;
@@ -422,11 +465,13 @@
       d3.select("#HighestPoint").text(hp);
       d3.select("#LowestPoint").text(lp);
       d3.select("#DayPassPriceAdult").text(price);
-      d3.select("#Snowparks").text(parking);
-      d3.select("#nightSki").text(nightSki);
       d3.select("#LiftCapacity").text(capacityLift);
       d3.select("#SnowCannons").text(cannon);
+      d3.select("#Snowparks img")
+        .attr("src", parking === "Yes" ? "pictures/yes.svg" : "pictures/no.svg");
 
+      d3.select("#nightSki img")
+        .attr("src", nightSki === "Yes" ? "pictures/yes.svg" : "pictures/no.svg");
       let numberScaleSlope = d3.scaleLinear()
         .domain([0, d3.max([bslope, islope, dslope]) + 1])
         .range([0, barWidth - 20]);
@@ -483,6 +528,7 @@
         .attr("alignment-baseline", "middle")
         .attr("font-size", "12px")
         .attr("font-family", "Roboto")
+        .style("font-weight", "300")
         .transition()
         .duration(1000)
         .attr("x", d => numberScale(d.number) + 5)
@@ -496,6 +542,9 @@
 
     function create_data(t1, t2, t3, n1, n2, n3) {
       return [{ "type": t1, "number": n1 }, { "type": t2, "number": n2 }, { "type": t3, "number": n3 }];
+    }
+    function jitter() {
+      return (Math.random() - 0.5) * 15
     }
 
   </script>

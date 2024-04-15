@@ -1,5 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;900&display=swap');
+
+
+.data_name td {
+    color: #bbb;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+
 
 
 h2, h3 {
@@ -57,3 +66,75 @@ p, td {
 }
 
 
+.gridlines line {
+  stroke: #bbb;
+}
+
+.gridlines .domain {
+  stroke: none;
+}
+
+#scatterPlot .y.axis path,
+#scatterPlot .y.axis line,
+#scatterPlot .y.axis text {
+    fill: none;
+    stroke: #bbb;
+}
+
+#scatterPlot .x.axis path,
+#scatterPlot .x.axis line,
+#scatterPlot .x.axis text {
+    fill: none;
+    stroke: #bbb;
+}
+
+#slope_info .y.axis path,
+#slope_info .y.axis line {
+    display: none;  
+}
+
+#lift_info .y.axis path,
+#lift_info .y.axis line {
+    display: none; 
+}
+
+#slope_info .y.axis text,
+#lift_info .y.axis text {
+  font-family: 'Roboto';
+  font-size: 11px;
+  font-weight: 300;
+} 
+
+#name, #country {
+  display: inline;
+}
+#name {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+
+#info_top {
+  height: 100px;
+  /* background-color: antiquewhite; */
+}
+#country, .data_name td {
+  color: #848484;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+#Snowparks, #nightSki, #SnowCannons, #LiftCapacity, #DayPassPriceAdult, #HighestPoint, #LowestPoint {
+  font-weight: 500;
+  font-size: 20px;
+  color: #719DF5;
+}
+
+table {
+  /* background-color: aliceblue; */
+}
+#info_panel {
+  padding: 20px;
+  border: solid 1px black; 
+  width: 300px;
+}
