@@ -17,18 +17,24 @@
   </div>
   <div>
 
-    <svg width="800" height="600" id="tree_map"></svg>
+    <svg width="750" height="600" id="tree_map"></svg>
   </div>
 
-  <div id="filter" style="border: solid 1px black; display: flex;">
-    <button id="parkingButton">Parking</button>
-    <button id="nightSkiButton">Night Ski</button>
+  <div id="filter">
+    <div>
+      <button id="parkingButton">Parking</button>
+    </div>
+    <div>
+      <button id="nightSkiButton">Night Ski</button>
+    </div>
+
+
 
     <div class="slider-container">
       <span id="min-value"></span>
       <input type="range" id="slider" min="1" max="100" value="50">
       <span id="max-value"></span>
-      <span id="sliderValue" style="padding-left: 20px;"></span>
+      <img src="pictures/dollar.svg" alt="dollars" style="width: 7px;padding-left: 20px;"><span id="sliderValue"></span>
     </div>
 
   </div>
@@ -37,7 +43,7 @@
     <svg id="scatterPlot" height="500" width="480" style="border: solid 1px black;"></svg>
 
     <div id="resort_info"
-      style=" display: flex; width: 800px; height: 550px; justify-content: space-around; border: solid 1px black;">
+      style=" display: flex; width: 800px; height: 500px; justify-content: space-around; border: solid 1px black;">
 
       <div id="info_panel">
         <div id="info_top">
@@ -71,7 +77,7 @@
             <tr>
               <td id="LiftCapacity"></td>
               <td id="SnowCannons"></td>
-              <td><span id="DayPassPriceAdult"></span> <img src="pictures/dollar.svg" alt="dollars" style="width: 8px;"></td>
+              <td><img src="pictures/dollar.svg" alt="dollars" style="width: 9px;"><span id="DayPassPriceAdult"></span></td>
             </tr>
             <tr class="data_name">
               <td>LiftCapacity</td>
@@ -205,7 +211,7 @@
 
       const treemap = d3.treemap()
         .size([width, height])
-        .padding(1)
+        .padding(3)
         .round(true);
 
       treemap(root);
@@ -233,6 +239,9 @@
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
         .text(d => d.data.name)
+        .attr("font-size", "14px")
+        .attr("font-family", "Roboto")
+        .style("font-weight", "400")
         .on("click", function (d) {
 
           change_country(d.data.name);
@@ -333,7 +342,7 @@
 
       const maxPrice = priceExtent[1];
       let leftAxis = d3.axisLeft(slopeScale).tickSize(3.5);
-      let yGridlines = d3.axisLeft(slopeScale).tickSize(-chartWidth).tickFormat("");
+      let yGridlines = d3.axisLeft(slopeScale).tickSize(-chartWidth - 5).tickFormat("");
       let bottomAxis = d3.axisBottom(liftScale).tickSize(3.5);
       let xGridlines = d3.axisBottom(liftScale).tickSize(-chartHeight).tickFormat("");
 
