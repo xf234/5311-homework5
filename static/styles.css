@@ -9,14 +9,28 @@ p, td, button, .slider-container span{
   font-family: 'Roboto';
 }
 
+body {
+  background-color: #F0F5FD;
+}
+
+
+/* tree map styling //////////////////////////////////// */
+.wrapper {
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 20px;
+  background-color: white;
+}
 
 
 /* filter styling /////////////////////////////////////////////////*/
 
 #filter {
   width: 500px;
-  margin: auto;
-  border: solid 1px black; 
+  margin-top: 60px;
+  margin-bottom: 30px;
+  margin-left: auto; 
+  margin-right: auto; 
   display: flex;
   justify-content: space-around;
 }
@@ -43,6 +57,7 @@ p, td, button, .slider-container span{
   margin: 0 15px;
   -webkit-appearance: none;
   appearance: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
 
@@ -62,7 +77,7 @@ p, td, button, .slider-container span{
   background: #719DF5;
   cursor: pointer;
   margin-top: -5px; 
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -77,6 +92,7 @@ button {
   cursor: pointer;
   background-color: white;
   transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
@@ -110,6 +126,12 @@ button:hover {
  
 
 /* information panel styling /////////////////////////////////////////// */
+#resort_info {
+  display: flex; 
+  width: 800px; 
+  justify-content: space-around; 
+}
+
 #resort_info table {
   display: inline-block;
 }
@@ -150,7 +172,6 @@ tr {
 }
 #info_panel {
   padding: 20px;
-  border: solid 1px black; 
   width: 300px;
 }
 
@@ -170,4 +191,9 @@ tr {
   font-family: 'Roboto';
   font-size: 11px;
   font-weight: 300;
+}
+.wrapper_s {
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background-color: white;
 }

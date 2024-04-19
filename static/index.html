@@ -10,14 +10,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-  <div>
-    <a href="../../5311-homework3/static/index.html">go to hw3</a>
-    <a href="../../../info4310-sp2024/notes/24.02.19.notes.htm">go to 2.19</a>
-  </div>
-  <div>
+<body >
 
-    <svg width="750" height="600" id="tree_map"></svg>
+  <div style="display: flex; justify-content: space-between; width: 1350px; margin: auto; margin-top: 30px;">
+    <div class ="wrapper">
+      <svg width="800" height="500" id="tree_map"></svg>
+    </div>
+    <div style="width: 450px;height: 550px; border: solid 1px black;">
+
+    </div>
   </div>
 
   <div id="filter">
@@ -28,8 +29,6 @@
       <button id="nightSkiButton">Night Ski</button>
     </div>
 
-
-
     <div class="slider-container">
       <span id="min-value"></span>
       <input type="range" id="slider" min="1" max="100" value="50">
@@ -39,22 +38,21 @@
 
   </div>
 
-  <div style="display: flex; justify-content: space-around;">
-    <svg id="scatterPlot" height="500" width="480" style="border: solid 1px black;"></svg>
+  <div style="display: flex; justify-content: space-between; width: 1350px; margin: auto; margin-bottom: 60px;">
+    <div class="wrapper">
+      <svg id="scatterPlot" height="500" width="480"></svg>
+    </div>
 
-    <div id="resort_info"
-      style=" display: flex; width: 800px; height: 500px; justify-content: space-around; border: solid 1px black;">
 
-      <div id="info_panel">
+    <div id="resort_info">
+      <div id="info_panel" class="wrapper">
         <div id="info_top">
           <h3 id="name"></h3>
           <p id="country" ></p>
         </div>
 
         <table >
-
           <tbody>
-
             <tr>
               <td id="HighestPoint"></td>
               <td  id="LowestPoint"></td>
@@ -88,12 +86,12 @@
         </table>
       </div>
 
-      <div style=" border: solid 1px black; width: 400px;">
-        <div>
-          <svg width="380" height="240" id="slope_info" style="border: solid 1px black;"></svg>
+      <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="wrapper_s">
+          <svg width="380" height="240" id="slope_info" ></svg>
         </div>
-        <div>
-          <svg width="380" height="240" id="lift_info" style="border: solid 1px black;"></svg>
+        <div class="wrapper_s">
+          <svg width="380" height="240" id="lift_info" ></svg>
         </div>
       </div>
 
@@ -211,10 +209,34 @@
 
       const treemap = d3.treemap()
         .size([width, height])
-        .padding(3)
+        .padding(7)
         .round(true);
 
       treemap(root);
+      var defs = svg_tree.append("defs");
+
+      var filtering = defs.append("filter")
+        .attr("id", "drop-shadow")
+        .attr("height", "120%")
+        ;
+
+      filtering.append("feGaussianBlur")
+        .attr("in", "SourceAlpha")
+        .attr("stdDeviation", 3)
+        .attr("result", "blur");
+
+      filtering.append("feOffset")
+        .attr("in", "blur")
+        .attr("dx", 0)
+        .attr("dy", 2)
+        .attr("result", "offsetBlur");
+
+      var feMerge = filtering.append("feMerge");
+
+      feMerge.append("feMergeNode")
+        .attr("in", "offsetBlur");
+      feMerge.append("feMergeNode")
+        .attr("in", "SourceGraphic");
 
       const cell = svg_tree.selectAll("g")
         .data(root.leaves())
@@ -226,12 +248,29 @@
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
         .attr("fill", d => d.data.color)
+        .attr("filter", d => d.data.name == "Austria" ? "url(#drop-shadow)": null)
         .on("click", function (d) {
-
+          d3.selectAll("rect")
+            .attr("filter", null);
+          d3.select(this)
+            .attr("filter", "url(#drop-shadow)");
           change_country(d.data.name);
           first_display = true;
           display_resorts(selected_counrtry);
+        })
+        .on("mouseover", function (d) {
+          if (d.data.name != selected_counrtry[0].Country) {
+            d3.select(this)
+              .attr("filter", "url(#drop-shadow)");
+          }
+        })
+        .on("mouseout", function (d) {
+          if (d.data.name != selected_counrtry[0].Country) {
+            d3.select(this)
+              .attr("filter", null);
+          }
         });
+        
 
       cell.append("text")
         .attr("x", d => (d.x1 - d.x0) / 2)
