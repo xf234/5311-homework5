@@ -10,94 +10,163 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-<body >
+<body>
 
-  <div style="display: flex; justify-content: space-between; width: 1350px; margin: auto; margin-top: 30px;">
-    <div class ="wrapper">
-      <svg width="800" height="500" id="tree_map"></svg>
-    </div>
-    <div style="width: 450px;height: 550px; border: solid 1px black;">
+  <div style="width: 1300px; margin: auto; ">
+    <div class="paragraphs">
+      <h2 style="padding-top: 30px;">Analysis and Selection of Ski Resorts in Europe</h2>
+      <p style="padding-bottom: 30px;">
+        Europe is a great place to go skiing with lots of different ski resorts. You can find easy slopes for beginners
+        and harder ones for experts. Whether you want to ski in the famous Alps or the quieter Pyrenees, European ski
+        resorts have beautiful views, fun places to hang out after skiing, and great skiing and snowboarding. However,
+        although there are lots of websites about European ski resorts online, most of them focus on resort information
+        display rather than comparison and analysis. This webpage aims at both data comparison and information display,
+        trying to explore both the distribution of the ski resorts in different countries and detailed information to
+        each
+        ski resort. Additionally, the article also aims to help the viewers find the suitable ski resorts more quickly.
+      </p>
 
-    </div>
-  </div>
-
-  <div id="filter">
-    <div>
-      <button id="parkingButton">Parking</button>
-    </div>
-    <div>
-      <button id="nightSkiButton">Night Ski</button>
-    </div>
-
-    <div class="slider-container">
-      <span id="min-value"></span>
-      <input type="range" id="slider" min="1" max="100" value="50">
-      <span id="max-value"></span>
-      <img src="pictures/dollar.svg" alt="dollars" style="width: 7px;padding-left: 20px;"><span id="sliderValue"></span>
     </div>
 
-  </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+      <div>
+        <svg width="800" height="600" id="tree_map"></svg>
+      </div>
+      <div style="width: 450px;">
+        <h2>Interaction Guide</h2>
+        <p>
+          <span>Click </span> the rectangle to see information about the ski resorts in particular countries <br><br>
+          <span> Select</span> the NightSki/Parking button and choose your price range <br><br>
+          <span>Zoom </span> in and out the Scatterplot by scrolling up and down <br><br>
+          <span>Click </span> the node in the Scatterplot to see detailed information for the ski resort
 
-  <div style="display: flex; justify-content: space-between; width: 1350px; margin: auto; margin-bottom: 60px;">
-    <div class="wrapper">
-      <svg id="scatterPlot" height="500" width="480"></svg>
+        <h2>Treemap Analysis</h2>
+        </p>
+
+        <p>
+          From the treemap we can see that Austria and France have the highest number of ski resorts, followed by
+          Switzerland and Italy. As a result, if you want to go skiing in Europe, it is highly possible to stay in one
+          of
+          those four countries. Unexpectedly, North European countries such as Norway, Sweden and Denmark do not have as
+          many resorts as southern Europe. The Alpine regions in Austria, France, Switzerland, and Italy offer extensive
+          mountain ranges with higher elevations, which are ideal for skiing and snowboarding. The regions typically
+          receive abundant snowfall during the winter months, providing excellent skiing conditions throughout the
+          season.
+          In contrast, Northern European countries like Norway, Sweden, and Finland, while offering excellent skiing
+          opportunities, have a shorter skiing season due to milder temperatures and less predictable snow conditions.
+        </p>
+      </div>
     </div>
 
-
-    <div id="resort_info">
-      <div id="info_panel" class="wrapper">
-        <div id="info_top">
-          <h3 id="name"></h3>
-          <p id="country" ></p>
-        </div>
-
-        <table >
-          <tbody>
-            <tr>
-              <td id="HighestPoint"></td>
-              <td  id="LowestPoint"></td>
-
-            </tr>
-            <tr class="data_name">
-              <td>HighestPoint</td>
-              <td >LowestPoint</td>
-
-            </tr>
-            <tr>
-              <td id="Snowparks"><img src="" alt="" style="width: 25px; height: 25px;"></td>
-              <td id="nightSki"> <img src="" alt="" style="width: 25px; height: 25px;"></td>
-            </tr>
-            <tr class="data_name">
-              <td>Snowparks</td>
-              <td > NightSki</td>
-            </tr>
-
-            <tr>
-              <td id="LiftCapacity"></td>
-              <td id="SnowCannons"></td>
-              <td><img src="pictures/dollar.svg" alt="dollars" style="width: 9px;"><span id="DayPassPriceAdult"></span></td>
-            </tr>
-            <tr class="data_name">
-              <td>LiftCapacity</td>
-              <td >SnowCannons</td>
-              <td>AdultDayPass</td>
-            </tr>
-          </tbody>
-        </table>
+    <div id="filter">
+      <div>
+        <button id="parkingButton">Parking</button>
+      </div>
+      <div>
+        <button id="nightSkiButton">Night Ski</button>
       </div>
 
-      <div style="display: flex; flex-direction: column; justify-content: space-between;">
-        <div class="wrapper_s">
-          <svg width="380" height="240" id="slope_info" ></svg>
-        </div>
-        <div class="wrapper_s">
-          <svg width="380" height="240" id="lift_info" ></svg>
-        </div>
+      <div class="slider-container">
+        <span id="min-value"></span>
+        <input type="range" id="slider" min="1" max="100" value="50">
+        <span id="max-value"></span>
+        <img src="pictures/dollar.svg" alt="dollars" style="width: 7px;padding-left: 20px;"><span
+          id="sliderValue"></span>
       </div>
 
     </div>
 
+    <div style="display: flex; justify-content: space-between; margin-bottom: 60px;">
+      <div class="wrapper">
+        <svg id="scatterPlot" height="500" width="480"></svg>
+      </div>
+
+      <div id="resort_info">
+        <div id="info_panel" class="wrapper">
+          <div id="info_top">
+            <h3 id="name"></h3>
+            <p id="country"></p>
+          </div>
+
+          <table>
+            <tbody>
+              <tr>
+                <td id="HighestPoint"></td>
+                <td id="LowestPoint"></td>
+
+              </tr>
+              <tr class="data_name">
+                <td>HighestPoint</td>
+                <td>LowestPoint</td>
+
+              </tr>
+              <tr>
+                <td id="Snowparks"><img src="" alt="" style="width: 25px; height: 25px;"></td>
+                <td id="nightSki"> <img src="" alt="" style="width: 25px; height: 25px;"></td>
+              </tr>
+              <tr class="data_name">
+                <td>Snowparks</td>
+                <td> NightSki</td>
+              </tr>
+
+              <tr>
+                <td id="LiftCapacity"></td>
+                <td id="SnowCannons"></td>
+                <td><img src="pictures/dollar.svg" alt="dollars" style="width: 9px;"><span
+                    id="DayPassPriceAdult"></span></td>
+              </tr>
+              <tr class="data_name">
+                <td>LiftCapacity</td>
+                <td>SnowCannons</td>
+                <td>AdultDayPass</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="wrapper_s">
+            <svg width="380" height="240" id="slope_info"></svg>
+          </div>
+          <div class="wrapper_s">
+            <svg width="380" height="240" id="lift_info"></svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="paragraphs">
+      <h2>Scatterplot Analysis</h2>
+      <p>
+        From the Scatter Plot and bar charts we can see that the number of lifts has a positive correlation with the
+        number of slopes. <br>
+        In the four major countries, most ski resorts have less than 80 lifts and less than 200 slopes. Only a few
+        resorts have lifts more than 90 and slopes more than 300. <br>
+        Almost all ski resorts provide parking service and only half ski resorts open at night. <br>
+        In terms of the price, most day pass prices are less than 55 Euro with Switzerland having some expensive
+        resorts.
+        The more service, such as lifts and slopes the resort provides, the more expensive the day pass is. <br>
+        For the type of slopes, beginner and medium slopes occupy a large proportion of the slopes, catering to the
+        needs
+        of most tourists and learners. For this type of lifts, surface lifts are quite popular types while gondola lifts
+        are more common in resorts with higher day pass price.
+
+      <h2>Conclusion</h2>
+      <p>
+        Europe offers diverse ski resorts, with Austria, France, Switzerland, and Italy leading in numbers. The Alps
+        provide ideal conditions for skiing, while Northern Europe has fewer resorts and a shorter season. Most major
+        resorts offer fewer than 80 lifts and 200 slopes, with day pass prices generally below 55 Euro. Slopes cater
+        mainly to beginners and intermediates, with surface lifts being popular and gondola lifts more common in
+        higher-priced resorts. This analysis helps skiers choose a suitable European ski resort based on facilities,
+        pricing, and slope types.
+      </p>
+
+    </div>
+    </p>
+
   </div>
+
 
   <script>
 
@@ -248,7 +317,7 @@
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
         .attr("fill", d => d.data.color)
-        .attr("filter", d => d.data.name == "Austria" ? "url(#drop-shadow)": null)
+        .attr("filter", d => d.data.name == "Austria" ? "url(#drop-shadow)" : null)
         .on("click", function (d) {
           d3.selectAll("rect")
             .attr("filter", null);
@@ -270,7 +339,7 @@
               .attr("filter", null);
           }
         });
-        
+
 
       cell.append("text")
         .attr("x", d => (d.x1 - d.x0) / 2)
