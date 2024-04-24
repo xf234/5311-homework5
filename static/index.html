@@ -14,7 +14,7 @@
 
   <div style="width: 1300px; margin: auto; ">
     <div class="paragraphs">
-      <h2 style="padding-top: 30px;">Analysis and Selection of Ski Resorts in Europe</h2>
+      <h2 style="padding-top: 60px; padding-bottom: 30px;">Analysis and Selection of Ski Resorts in Europe</h2>
       <p style="padding-bottom: 30px;">
         Europe is a great place to go skiing with lots of different ski resorts. You can find easy slopes for beginners
         and harder ones for experts. Whether you want to ski in the famous Alps or the quieter Pyrenees, European ski
@@ -300,11 +300,11 @@
         .attr("dy", 2)
         .attr("result", "offsetBlur");
 
-      var feMerge = filtering.append("feMerge");
+      var merge = filtering.append("feMerge");
 
-      feMerge.append("feMergeNode")
+      merge.append("feMergeNode")
         .attr("in", "offsetBlur");
-      feMerge.append("feMergeNode")
+      merge.append("feMergeNode")
         .attr("in", "SourceGraphic");
 
       const cell = svg_tree.selectAll("g")
